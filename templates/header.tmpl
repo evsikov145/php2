@@ -1,0 +1,24 @@
+<header>
+    <nav>
+        {% if login == "admin" %}
+        <a href="/views/otzovy.php">Отзовы</a>
+        <a href="/views/admin.php">Админка</a>
+        <a href="/index.php">Каталог товаров</a>
+        <a href="/views/admin_add.php">Добавить товар</a>
+        <a href="/views/basket.php">Корзина</a>
+        {% else %}
+        <a href="/views/auth.php">Авторизация</a>
+        <a href="/views/registration.php">Регистрация</a>
+        <a href="/views/otzovy.php">Отзовы</a>
+        <a href="/views/basket.php">Корзина</a>
+        {% endif %}
+    </nav>
+    {% if login %}
+    <div class="user">
+        <p>Вы зашли на сайт как {{ login }}</p>
+    </div>
+    <div class="exit">
+        <a href="models/exit.php">Выйти</a>
+    </div>
+    {% endif %}
+</header>

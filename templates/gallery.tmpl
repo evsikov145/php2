@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+{{ header }}
+
+<div class="content">
+
+    {% for good in goods %}
+    <div class="content-item">
+        <img src="{{ good.path }}" alt="{{ good.name }}" class="content__img">
+        <p class="content__name">{{ good.name }}</p>
+        <p class="content__price">Стоимость: {{ good.price}} рублей</p>
+        <a href="item.php?id={{ good.id }}">Подробнее</a>
+    </div>
+    {% endfor %}
+
+</div>
+
+{{ footer }}
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+{{ header }}
+{% for good in good %}
+<div class="single-content">
+    <img src="{{ good.path }}" alt="{{ good.name }}">
+    <p class="single__name">{{ good.name }}</p>
+    <p class="single__desc">{{ good.desk }}</p>
+    <p class="single__price">Стоимость: {{ good.price }} рублей</p>
+    <a href="../models/basket-site.php?id='{{ good.id }}'">Купить</a>
+</div>
+{% endfor %}
+{{ footer }}
+
+</body>
+</html>
