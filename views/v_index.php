@@ -1,1 +1,1 @@
-<?phpprint_r(goods);
+<?phpwhile ($data = mysqli_fetch_assoc(goods)):?>    <p><?=$data['id']?></p><?endwhile;?>

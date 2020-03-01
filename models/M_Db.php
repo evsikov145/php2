@@ -12,7 +12,3 @@ class M_Db
         return $connect;
     }
 }
-
-$a = new M_Db();
-$a ->connect();
-print_r($a);
