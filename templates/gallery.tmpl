@@ -9,18 +9,21 @@
 </head>
 <body>
 {{ header }}
+<div class="main">
+    <div class="content">
 
-<div class="content">
+        {% for good in goods %}
+            <div class="content-item">
+                <img src="{{ good.path }}" alt="{{ good.name }}" class="content__img">
+                <p class="content__name">{{ good.name }}</p>
+                <p class="content__price">Стоимость: {{ good.price}} рублей</p>
+                <a href="item.php?id={{ good.id }}">Подробнее</a>
+            </div>
+        {% endfor %}
 
-    {% for good in goods %}
-    <div class="content-item">
-        <img src="{{ good.path }}" alt="{{ good.name }}" class="content__img">
-        <p class="content__name">{{ good.name }}</p>
-        <p class="content__price">Стоимость: {{ good.price}} рублей</p>
-        <a href="item.php?id={{ good.id }}">Подробнее</a>
     </div>
-    {% endfor %}
 
+    <a href="?lim={{ lim }}">Показать ещё</a>
 </div>
 
 {{ footer }}

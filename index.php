@@ -3,8 +3,14 @@
 include "models/goods.php";
 
 session_start();
+if(empty($_GET)){
+    $lim = 1;
+} else {
+    $lim = $_GET['lim'];
+    $lim += 1;
+}
 
-$goods = goodsAll($connect);
+$goods = goodsLimit($connect, $lim);
 
 $login = $_SESSION['login'];
 
@@ -29,7 +35,8 @@ try {
 
     $content = $template->render(array(
         'goods' => $goods,
-        'title' => 'Каталог товаров'
+        'title' => 'Каталог товаров',
+        'lim' => $lim
     ));
 
     $template = $twig->loadTemplate('header.tmpl');
