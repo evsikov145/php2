@@ -2,36 +2,57 @@
 
 class M_Db
 {
-    private $host;
-    private $login;
-    private $password;
-    private $db;
-    private $options;
-    private $PDO;
-    private $charset = "UTF8";
+    const HOST = 'localhost';
+    const LOGIN = 'root';
+    const PASSWORD = '';
+    const DB = 'catalog';
+    const CHARSET = "UTF8";
 
-    public function __construct($host_copy, $login_copy, $password_copy, $db_copy)
-    {
-        $this->host = $host_copy;
-        $this->login = $login_copy;
-        $this->password = $password_copy;
-        $this->db = $db_copy;
-        $this->options = [
-          PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-          PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-          PDO::ATTR_EMULATE_PREPARES => false,
-        ];
+    protected static $instance = null;
+
+    public function __construct(){}
+    private function __clone(){}
+
+    private static function instance() {
+        if (self::$instance === null) {
+            $opt = array(
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+                \PDO::ATTR_EMULATE_PREPARES => TRUE,
+            );
+            $dsn = 'mysql:host=' . self::HOST . ';dbname=' . self::DB . ';charset=' . self::CHARSET;
+            self::$instance = new \PDO($dsn, self::LOGIN, self::PASSWORD, $opt);
+        }
+        return self::$instance;
     }
 
-    public function connect_pdo(){
-        $this->PDO = new PDO("mysql:host=$this->host;dbname=$this->db;charset=$this->charset", $this->login, $this->password, $this->options);
+    private static function sql($sql, $args = []) {
+        $stmt = self::instance()->prepare($sql);
+        $stmt->execute($args);
+        return $stmt;
     }
 
-    public function close_connect_pdo(){
-        $this->PDO = null;
+    public static function select($sql, $args = []) {
+        return self::sql($sql, $args);
     }
 
-    public function getInfoPDO(){
-        return $this->PDO;
+    public static function getRow($sql, $args = []) {
+        return self::sql($sql, $args);
     }
+
+    public static function insert($sql, $args = []) {
+        self::sql($sql, $args);
+        return self::instance()->lastInsertId();
+    }
+
+    public static function update($sql, $args = []) {
+        $stmt = self::sql($sql, $args);
+        return $stmt->rowCount();
+    }
+
+    public static function delete($sql, $args = []) {
+        $stmt = self::sql($sql, $args);
+        return $stmt->rowCount();
+    }
+
 }
