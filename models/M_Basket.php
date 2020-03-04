@@ -9,10 +9,20 @@ class M_Basket {
         $res = $connect->select($sql);
         return $res;
     }
-    public function basketAdd() {
+    public function basketGet($id) {
         $connect = new M_Db();
-        $sql = "INSERT INTO `basket` VALUES ()";
-        $res = $connect->select($sql);
+        $sql = "SELECT name, price FROM `item` WHERE id = $id";
+        $res = $connect->select($sql, array('id'=> $id));
+        return $res;
+    }
+    public function basketAdd($id) {
+
+        $arr = $this->basketGet($id)->fetch();
+        $name = $arr['name'];
+        $price = $arr['price'];
+        $connect = new M_Db();
+        $sql = "INSERT INTO basket(id_good, name, price) VALUES ($id, $name, $price)";
+        $res = $connect->insert($sql);
         return $res;
     }
     public function basketDel() {
