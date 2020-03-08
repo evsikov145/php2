@@ -21,8 +21,8 @@ class M_Basket {
         $name = $arr['name'];
         $price = $arr['price'];
         $connect = new M_Db();
-        $sql = "INSERT INTO basket(id_good, name, price) VALUES ($id, $name, $price)";
-        $res = $connect->insert($sql);
+        $sql = "INSERT INTO `basket`(id_good, name, price) VALUES ($id, $name, $price)";
+        $res = $connect->insert($sql, array('id_good'=>$id, 'name'=>$name,'price'=> $price));
         return $res;
     }
     public function basketDel() {
@@ -32,3 +32,7 @@ class M_Basket {
 
     }
 }
+
+$a = new M_Basket();
+$b = $a->basketAdd(1);
+print_r($b);

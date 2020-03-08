@@ -14,8 +14,8 @@ class C_Basket extends C_Base {
     public function action_add(){
         $id = $_GET['id'];
         $items = new M_Basket();
-        $res = $items->basketAdd($id);
-        $this->content = $this->Template('views/v_basket.php', array('res' => $res));
+        $items->basketAdd($id);
+        $this->content = $this->Template('views/v_index.php');
     }
     public function action_del(){
 
