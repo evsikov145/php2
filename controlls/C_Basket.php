@@ -15,7 +15,7 @@ class C_Basket extends C_Base {
         $id = $_GET['id'];
         $items = new M_Basket();
         $items->basketAdd($id);
-        
+
     }
     public function action_del(){
 

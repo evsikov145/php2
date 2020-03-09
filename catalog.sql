@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 02 2020 г., 01:00
+-- Время создания: Мар 09 2020 г., 14:00
 -- Версия сервера: 8.0.15
 -- Версия PHP: 7.2.22
 
@@ -29,8 +29,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `basket` (
-  `id` int(11) NOT NULL,
+  `id_basket` int(11) NOT NULL,
+  `id_good` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `price` int(100) NOT NULL,
   `count` int(255) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -38,10 +40,11 @@ CREATE TABLE `basket` (
 -- Дамп данных таблицы `basket`
 --
 
-INSERT INTO `basket` (`id`, `name`, `count`) VALUES
-(6, 'SP-BALSA PRO', 1),
-(7, 'SP-CARBON PRO', 1),
-(8, 'Donier SP-12 PRO', 1);
+INSERT INTO `basket` (`id_basket`, `id_good`, `name`, `price`, `count`) VALUES
+(41, 3, 'Donier SP-12 PRO', 2300, 1),
+(42, 2, 'SP-CARBON PRO', 3900, 1),
+(47, 3, 'Donier SP-12 PRO', 2300, 1),
+(48, 3, 'Donier SP-12 PRO', 2300, 1);
 
 -- --------------------------------------------------------
 
@@ -125,7 +128,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `login`, `password`) VALUES
 -- Индексы таблицы `basket`
 --
 ALTER TABLE `basket`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_basket`);
 
 --
 -- Индексы таблицы `feedback`
@@ -153,7 +156,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `basket`
 --
 ALTER TABLE `basket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_basket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT для таблицы `feedback`
