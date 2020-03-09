@@ -11,18 +11,21 @@ class M_Basket {
     }
     public function basketGet($id) {
         $connect = new M_Db();
-        $sql = "SELECT name, price FROM `item` WHERE id = $id";
-        $res = $connect->select($sql, array('id'=> $id));
+        $sql = "SELECT name, price FROM `item` WHERE id = :id";
+        $res = $connect->getRow($sql, array('id'=> $id));
         return $res;
     }
     public function basketAdd($id) {
-
-        $arr = $this->basketGet($id)->fetch();
+        $id = (int)$id;
+        $arr = $this->basketGet($id);
         $name = $arr['name'];
+        print_r($name);
         $price = $arr['price'];
+        print_r($price);
+        $price = (int)$price;
         $connect = new M_Db();
-        $sql = "INSERT INTO `basket`(id_good, name, price) VALUES ($id, $name, $price)";
-        $res = $connect->insert($sql, array('id_good'=>$id, 'name'=>$name,'price'=> $price));
+        $sql = "INSERT INTO `basket`(id_good, name, price) VALUES (:id, :name, :price)";
+        $res = $connect->insert($sql, array('id'=>$id, 'name'=>$name,'price'=> $price));
         return $res;
     }
     public function basketDel() {
@@ -34,5 +37,5 @@ class M_Basket {
 }
 
 $a = new M_Basket();
-$b = $a->basketAdd(1);
+$b = $a->basketAdd(3);
 print_r($b);
