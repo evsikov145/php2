@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 09 2020 г., 14:00
--- Версия сервера: 8.0.15
--- Версия PHP: 7.2.22
+-- Время создания: Мар 14 2020 г., 18:56
+-- Версия сервера: 10.3.13-MariaDB-log
+-- Версия PHP: 7.1.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,46 +31,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `basket` (
   `id_basket` int(11) NOT NULL,
   `id_good` int(11) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_order` int(255) NOT NULL DEFAULT 1,
+  `name` varchar(255) NOT NULL,
   `price` int(100) NOT NULL,
-  `count` int(255) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `count` int(255) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `basket`
 --
 
-INSERT INTO `basket` (`id_basket`, `id_good`, `name`, `price`, `count`) VALUES
-(41, 3, 'Donier SP-12 PRO', 2300, 1),
-(42, 2, 'SP-CARBON PRO', 3900, 1),
-(47, 3, 'Donier SP-12 PRO', 2300, 1),
-(48, 3, 'Donier SP-12 PRO', 2300, 1);
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `feedback`
---
-
-CREATE TABLE `feedback` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `text` text COLLATE utf8mb4_general_ci NOT NULL,
-  `path` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '../feedback/',
-  `img` varchar(50) COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Дамп данных таблицы `feedback`
---
-
-INSERT INTO `feedback` (`id`, `name`, `text`, `path`, `img`) VALUES
-(1, 'Василий', 'Купил у вас на днях ракетку Повершот 2000 и знаете, мне повезло, играю лучше профессионалов, мне даже завидуют!', '../feedback/', 'img1.jpg'),
-(2, 'Олег', 'Я так долго мучался с этой ракеткой, что лучше бы научился программировать, чем играть ей!', '../feedback/', 'img3.jpg'),
-(9, 'Марина', 'Ну у каждого свой отзыв, мне вот нравится вышивать крестиком, но муж подарил на 8 марта ЭТО!', '../feedback/', 'img2.jpg'),
-(10, 'Олег', 'asdasffgsdfsdfdsafsdf', '../feedback/', 'ФЭЙЛ.jpg'),
-(11, 'asdasdasdsad', 'safsafasfsaf', '../feedback/', 'айси заставка1.jpg'),
-(12, 'safdasafdssdf', 'safdasdas', '../feedback/', 'заставка айси.png');
+INSERT INTO `basket` (`id_basket`, `id_good`, `id_order`, `name`, `price`, `count`) VALUES
+(41, 3, 1, 'Donier SP-12 PRO', 2300, 4),
+(42, 2, 1, 'SP-CARBON PRO', 3900, 2),
+(53, 1, 1, 'SP-BALSA PRO', 4300, 1);
 
 -- --------------------------------------------------------
 
@@ -98,16 +72,28 @@ INSERT INTO `item` (`id`, `name`, `path`, `price`, `desk`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `orders`
+--
+
+CREATE TABLE `orders` (
+  `id_order` int(255) NOT NULL,
+  `id_basket` int(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `users`
 --
 
 CREATE TABLE `users` (
   `id` int(10) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `login` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `login` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Дамп данных таблицы `users`
@@ -131,16 +117,16 @@ ALTER TABLE `basket`
   ADD PRIMARY KEY (`id_basket`);
 
 --
--- Индексы таблицы `feedback`
---
-ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Индексы таблицы `item`
 --
 ALTER TABLE `item`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id_order`);
 
 --
 -- Индексы таблицы `users`
@@ -156,19 +142,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `basket`
 --
 ALTER TABLE `basket`
-  MODIFY `id_basket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-
---
--- AUTO_INCREMENT для таблицы `feedback`
---
-ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_basket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT для таблицы `item`
 --
 ALTER TABLE `item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id_order` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `users`

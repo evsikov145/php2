@@ -1,8 +1,10 @@
 <?php
 
 include_once "C_Base.php";
+include_once "C_Page.php";
 include_once './models/M_Basket.php';
 include_once './models/M_Db.php';
+include_once './models/M_Goods.php';
 
 class C_Basket extends C_Base {
 
@@ -16,6 +18,10 @@ class C_Basket extends C_Base {
         $items = new M_Basket();
         $items->basketAdd($id);
 
+        $goods = new M_Goods();
+        $query = $goods ->goodsAll();
+
+        $this->content = $this->Template('views/v_index.php', array('query' => $query));
     }
     public function action_del(){
 

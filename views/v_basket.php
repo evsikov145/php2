@@ -4,6 +4,7 @@
         <p>Цена</p>
         <p>Количество</p>
     </div>
+
     <?foreach ($res as $data):?>
 
         <div class="basket-item">
@@ -13,6 +14,9 @@
         </div>
 
     <? endforeach; ?>
+    <div class="order-item">
+        <a href="#">Собрать заказ</a>
+    </div>
 
 </div>
 
