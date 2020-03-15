@@ -49,13 +49,10 @@ class M_Basket
 
     }
 
-    public function basketDel()
-    {
-        
-    }
-
-    public function basketUpt()
-    {
-
-    }
+//    public function basketUptCount($count)
+//    {
+//        $connect = new M_Db();
+//        $sql = "UPDATE `basket` SET count = :count WHERE id_good = :id";
+//        $connect->update($sql, array('id' => $id, 'count' => $count));
+//    }
 }

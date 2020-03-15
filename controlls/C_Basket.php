@@ -23,7 +23,13 @@ class C_Basket extends C_Base {
 
         $this->content = $this->Template('views/v_index.php', array('query' => $query));
     }
-    public function action_del(){
+    public function action_order(){
+        $count = $_POST['count'];
 
+        $items = new M_Basket();
+
+//        $upd = $items->basketUptCount($count);
+        $res = $items->basketAll();
+        $this->content = $this->Template('views/v_order.php', array('res' => $res));
     }
 }

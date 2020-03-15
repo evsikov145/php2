@@ -179,8 +179,27 @@ input {
 .basket-item input {
 	display: block;
 	margin-bottom: 0px;
-	max-width: 40px;
+	max-width: 30px;
 }
 .basket-item p {
 	margin-bottom: 0;
+}
+.basket-submit {
+	text-align: center;
+}
+.order {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
+}
+.order-title {
+	margin: 20px 0;
+	text-align: center;
+}
+.order-item {
+	margin: 20px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
