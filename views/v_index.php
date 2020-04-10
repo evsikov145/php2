@@ -1,0 +1,1 @@
+<?foreach ($query as $data):?><div class="content-item">    <img src="<?= $data['path'] ?>" alt="<?= $data['name'] ?>" class="content__img">    <p class="content__name"><?= $data['name'] ?></p>    <p class="content__price">Стоимость: <?= $data['price'] ?> рублей</p>    <a href="index.php?id=<?= $data['id'] ?>&act=item">Подробнее</a></div><? endforeach; ?>
